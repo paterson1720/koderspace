@@ -58,10 +58,6 @@ code {
     border-radius: 2px !important;
 }
 
-/* .EasyMDEContainer > textarea {
-    caret-color: red !important;
-} */
-
 .CodeMirror-cursor {
     border-left: 1px solid white !important;
 }
@@ -79,11 +75,6 @@ span.CodeMirror-selectedtext {
     border-radius: 10px;
 }
 
-/* #commentTextArea-wrapper {
-    position: sticky !important;
-    top: 71.5vh !important;
-} */
-
 .EasyMDEContainer .CodeMirror {
     background-color: #273341 !important;
     color: antiquewhite !important;
@@ -96,4 +87,11 @@ span.CodeMirror-selectedtext {
 
 .EasyMDEContainer > .editor-toolbar > button {
     color: white !important;
+}
+
+.comment pre {
+    color: rgb(248, 248, 242);
+    background: rgb(15, 15, 15) !important;
+    text-shadow: rgba(0, 0, 0, 0.3) 0px 1px;
+    max-width: 500px !important;
 }

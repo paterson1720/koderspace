@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
-import SimpleMDE from 'react-simplemde-editor';
+import React, { useState, useEffect, useRef } from 'react';
 
+import MarkDownTextArea from '../../components/MarkDownTextArea';
 import CodeEditor from '../../components/CodeEditor';
 import Avatar from '../../components/Avatar';
+import Comment from '../../components/Comment';
 
 import styles from '../../styles/Post.module.css';
-import Comment from '../../components/Comment';
+
+import HttpService from '../../HttpService/index';
 
 const user = {
     username: 'Sage',
@@ -14,54 +16,44 @@ const user = {
     imageUrl: 'https://i.pinimg.com/originals/6c/09/0f/6c090f6bdb01fa8e15a6fcd3cd2f6043.jpg'
 };
 
-function MarkDownTexArea({ onChange, value }) {
-    return (
-        <SimpleMDE
-            id="commentTextArea"
-            value={value}
-            onChange={onChange}
-            options={{
-                showIcons: ['code', 'bold', 'italic'],
-                minHeight: '100px',
-                autofocus: true,
-                spellChecker: false,
-                hideIcons: [
-                    'strikethrough',
-                    'heading',
-                    'quote',
-                    'unordered-list',
-                    'ordered-list',
-                    'side-by-side',
-                    'fullscreen'
-                ]
-            }}
-        />
-    );
-}
-
 function PostDetails(props) {
-    const { post, socket } = props;
-    const [comments, setComments] = useState([]);
+    const { post, postComments, socket } = props;
+    const [comments, setComments] = useState(postComments);
     const [newComment, setNewComment] = useState({});
+    const commentsRef = useRef(comments);
 
-    const handleComment = () => {
-        setComments([...comments, newComment]);
+    const handleComment = async () => {
+        const comment = { ...newComment, postId: post._id };
+        if (!comment.description) return alert('Comment not valid');
+        const { error, data } = await HttpService.postData('/api/comments/create', comment);
+        if (error) alert('Oops! An error happen, please try again.');
+        setComments([...comments, data.comment]);
+        socket.emit('NEW_COMMENT', data.comment);
         setNewComment({ description: '' });
     };
 
     const handleCommentTextAreaChange = (value) => {
         setNewComment({ description: value });
     };
+
+    const commentHandler = (data) => {
+        setComments([...commentsRef.current, data]);
+    };
+
     useEffect(() => {
-        socket.on('NEW_COMMENT', (data) => {
-            setComments([data, ...comments]);
-        });
+        commentsRef.current = comments;
+    });
+    useEffect(() => {
+        socket.emit('JOIN_COMMENT', post._id);
+        socket.on('NEW_COMMENT', commentHandler);
         return () => {
-            socket.off('NEW_COMMENT');
+            socket.off('NEW_COMMENT', commentHandler);
         };
     }, []);
+
     return (
         <>
+            <div className={styles.postPageNavBar}>Post Page Header</div>
             <div className={styles.container}>
                 <div key={post?._id} className={styles.postContainer}>
                     <Avatar
@@ -80,7 +72,7 @@ function PostDetails(props) {
                                 mode={post?.codeLanguage}
                                 code={post?.code}
                                 readOnly={true}
-                                height="75vh"
+                                height="70vh"
                             />
                             <div className={styles.editorExtensionBottom} />
                         </>
@@ -94,13 +86,13 @@ function PostDetails(props) {
                 </div>
                 <div className={styles.commentContainer}>
                     <div className={styles.comments}>
-                        {comments.map((comment, index) => (
+                        {comments?.map((comment, index) => (
                             <Comment key={index} comment={comment?.description} />
                         ))}
                     </div>
                     <div className={styles.textAreaAndButtonWrapper}>
-                        <MarkDownTexArea
-                            value={newComment.description}
+                        <MarkDownTextArea
+                            value={newComment?.description}
                             onChange={handleCommentTextAreaChange}
                         />
                         <button className={styles.commentButton} onClick={handleComment}>
@@ -118,7 +110,9 @@ export default PostDetails;
 export async function getServerSideProps(context) {
     const END_POINT = process.env.API_ENDPOINT;
     const { post_id } = context.params;
-    const response = await fetch(`${END_POINT}/posts/${post_id}`);
-    const { post } = await response.json();
-    return { props: { post } };
+    const postResponse = await fetch(`${END_POINT}/posts/${post_id}`);
+    const commentsResponse = await fetch(`${END_POINT}/comments/${post_id}`);
+    const { post } = await postResponse.json();
+    const { comments } = await commentsResponse.json();
+    return { props: { post, postComments: comments } };
 }

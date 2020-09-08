@@ -1,7 +1,7 @@
 import React from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+// import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 
 import styles from '../styles/SideBar.module.css';
 import SideBarItem from './SideBarItem';
@@ -18,7 +18,7 @@ function SideBar() {
             </div>
             <SideBarItem link="/" text="Home" icon={<HomeIcon />} />
             <SideBarItem link="#" text="Profile" icon={<PersonOutlineIcon />} />
-            <SideBarItem link="#" text="Notifications" icon={<NotificationsNoneIcon />} />
+            {/*  <SideBarItem link="#" text="Notifications" icon={<NotificationsNoneIcon />} /> */}
         </section>
     );
 }
