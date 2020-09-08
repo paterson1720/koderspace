@@ -1,0 +1,13 @@
+.textarea {
+    width: 90%;
+    background-color: #273341;
+    margin: 0px;
+    height: 90px;
+    border: 1px solid #263341;
+    border-bottom: 1px solid #16202b;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 20px;
+    color: #66d9ef;
+    outline: none;
+}

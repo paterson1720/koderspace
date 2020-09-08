@@ -1,0 +1,9 @@
+.select {
+    width: 200px;
+    padding: 5px;
+    background: #27313c;
+    color: white;
+    border: 0.5px solid #16202b;
+    outline: none;
+    border-radius: 99px;
+}

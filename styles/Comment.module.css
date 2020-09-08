@@ -1,0 +1,17 @@
+.comment {
+    box-sizing: border-box;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #081523;
+    border-radius: 10px;
+}
+
+.comment a {
+    color: dodgerblue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.comment code {
+    color: rgb(155, 153, 153);
+}

@@ -1,0 +1,120 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    /*     justify-content: center;
+    align-items: center; */
+}
+
+.postContainer {
+    height: 100vh;
+    margin-right: 45px;
+    background-color: #27334159;
+    border-radius: 10px;
+    flex: 0.6 1;
+    display: grid;
+    place-items: center;
+    margin-left: 45px;
+}
+
+.postDescription {
+    width: 89%;
+    margin: 2px;
+    margin-bottom: 10px;
+    word-break: break-word;
+}
+
+.codeLanguage {
+    text-transform: uppercase;
+    color: #9c9b9b;
+    font-size: xx-small;
+    display: block;
+    margin: 3px;
+    padding: 0;
+}
+
+.editorExtensionTop {
+    width: 90%;
+    height: 20px;
+    background-color: #081523;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: -19px;
+}
+
+.editorExtensionBottom {
+    width: 90%;
+    height: 10px;
+    background-color: #273341;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-top: -25px;
+}
+
+.postFooter {
+    display: flex;
+    width: 90%;
+    border: 0.5px solid #273341;
+    margin-top: 10px;
+    border-left: none;
+    border-right: none;
+    padding: 5px;
+}
+
+.reviewButtonContainer {
+    flex: auto;
+    display: grid;
+    place-items: center;
+}
+
+.rateReviewIconContainer {
+    flex: auto;
+    display: flex;
+    place-items: center;
+    justify-content: center;
+}
+
+.rateReviewIconContainer > span {
+    margin-left: 10px;
+    color: gray;
+}
+
+.commentContainer {
+    min-height: 100vh;
+    flex: 0.4 1;
+    margin-right: 45px;
+    position: relative;
+    background-color: #27334159;
+    padding: 5px 20px;
+    border-radius: 10px;
+}
+
+.comments {
+    height: 65vh;
+    overflow: overlay;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    border-radius: 10px;
+}
+
+.comments::-webkit-scrollbar {
+    display: none;
+}
+
+.textAreaAndButtonWrapper {
+    position: relative;
+    padding-top: 10px;
+    border-top: 1px solid #273e54;
+}
+
+.commentButton {
+    position: absolute;
+    width: 100%;
+    height: 35px;
+    border-radius: 8px;
+    background-color: dodgerblue;
+    outline: none;
+    border: none;
+    text-transform: uppercase;
+    color: white;
+    margin-top: 10px;
+}

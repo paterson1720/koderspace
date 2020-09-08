@@ -1,16 +1,99 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+        Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-color: #16202b;
+    color: white;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+code {
+    color: black;
+}
+
+.ace_content {
+    padding: 10px;
+}
+
+.ace-monokai {
+    background-color: #263341 !important;
+}
+
+.ace-monokai .ace_gutter {
+    background: #263341;
+    color: lightgray;
+}
+
+.ace_scrollbar-h,
+.ace_scrollbar-v {
+    display: none;
+}
+
+#ace_editor_div::-webkit-scrollbar {
+    display: none;
+}
+
+.EasyMDEContainer > .editor-toolbar {
+    border: none !important;
+}
+
+.EasyMDEContainer .editor-toolbar button.active,
+.editor-toolbar button:hover {
+    background: #273341 !important;
+    border-color: #95a5a6 !important;
+}
+
+.EasyMDEContainer .cm-s-easymde .cm-comment {
+    background: rgb(8 21 35) !important;
+    border-radius: 2px !important;
+}
+
+/* .EasyMDEContainer > textarea {
+    caret-color: red !important;
+} */
+
+.CodeMirror-cursor {
+    border-left: 1px solid white !important;
+}
+
+span.CodeMirror-selectedtext {
+    background: #0676f1 !important;
+}
+
+.editor-preview {
+    background: #273341 !important;
+}
+
+.EasyMDEContainer {
+    background-color: #081523 !important;
+    border-radius: 10px;
+}
+
+/* #commentTextArea-wrapper {
+    position: sticky !important;
+    top: 71.5vh !important;
+} */
+
+.EasyMDEContainer .CodeMirror {
+    background-color: #273341 !important;
+    color: antiquewhite !important;
+    border: none !important;
+}
+
+.EasyMDEContainer .CodeMirror code {
+    color: aliceblue !important;
+}
+
+.EasyMDEContainer > .editor-toolbar > button {
+    color: white !important;
 }

@@ -1,0 +1,26 @@
+.linkContent {
+    width: 80%;
+    display: flex;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.linkContent:hover {
+    background-color: #21354a;
+    border-radius: 99px;
+}
+
+.sideBarItemText {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+}
+
+.iconContainer {
+    padding: 0 20px;
+}
+
+.activeLink {
+    color: dodgerblue;
+}

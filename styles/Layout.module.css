@@ -1,0 +1,37 @@
+.main {
+    min-width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    width: 75vw;
+    margin: 0 auto;
+}
+
+.contentArea {
+    height: 100vh;
+    flex: 1;
+    position: relative;
+    overflow: overlay;
+    -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
+    scrollbar-width: none; /* Hide Scrollbar Firefox */
+    border: 0.2px solid #21354a;
+    border-top: none;
+}
+
+.contentArea::-webkit-scrollbar {
+    display: none;
+}
+
+@media (max-width: 1200px) {
+    .wrapper {
+        width: 100vw;
+    }
+
+    .contentArea {
+        flex: 1;
+    }
+}

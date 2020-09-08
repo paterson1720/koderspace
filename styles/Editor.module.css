@@ -1,0 +1,27 @@
+.editorHeader {
+    width: 90%;
+    height: 40px;
+    background-color: #273341;
+    border-bottom: 0.5px solid #15202b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textAreaContainer {
+    display: grid;
+    width: 100%;
+    place-items: center;
+}
+
+.publishBtnContainer {
+    background-color: #273341;
+    margin: 0;
+    padding: 10px;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    border-top: 0.5px solid #15202b;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
