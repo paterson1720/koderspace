@@ -1,65 +1,135 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+import RateReviewIcon from '@material-ui/icons/RateReview';
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+import styles from '../styles/Home.module.css';
+import Layout from '../components/HomeLayout';
+import CodeEditor from '../components/CodeEditor';
+import Editor from '../components/Editor';
+import Avatar from '../components/Avatar';
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+import HttpService from '../HttpService/index';
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+const user = {
+    username: 'Sage',
+    email: '',
+    imageUrl: 'https://i.pinimg.com/originals/6c/09/0f/6c090f6bdb01fa8e15a6fcd3cd2f6043.jpg'
+};
+const options = [
+    'JavaScript',
+    'Java',
+    'Ruby',
+    'Python',
+    'Csharp',
+    'Golang',
+    'CSS',
+    'HTML',
+    'Coffee',
+    'Handlebars'
+];
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+const defaultCode = `// Share some code with us...`;
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+export default function Home(props) {
+    const socket = props.socket;
+    const [posts, setPosts] = useState(props.posts);
+    const [codeLanguage, setCodeLanguage] = useState('javascript');
+    const [newPost, setNewPost] = useState({ codeLanguage });
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+    const publishPost = async () => {
+        const postIsValid = !!newPost.code || !!newPost.description;
+        const post = { ...newPost };
+        if (post.code) post.code = post.code + '\r\r';
+        if (!postIsValid) return alert('Post not valid!');
+        const { error, data } = await HttpService.postData('/api/posts/create', post);
+        if (error) return alert('An error occured. Please try later');
+        setNewPost({ codeLanguage, description: '' });
+        socket.emit('NEW_POST', data.post);
+        setPosts([data.post, ...posts]);
+    };
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+    const onModeChange = (e) => {
+        setCodeLanguage(e.target.value);
+    };
+    const onEditorChange = (value) => {
+        setNewPost({ ...newPost, code: value, codeLanguage });
+    };
+    const onTextAreaChange = (e) => {
+        setNewPost({ ...newPost, description: e.target.value });
+    };
+    useEffect(() => {
+        socket.on('NEW_POST', (data) => {
+            setPosts([data, ...posts]);
+        });
+
+        return () => {
+            socket.off('NEW_POST');
+        };
+    }, []);
+
+    return (
+        <Layout>
+            <div className={styles.container}>
+                <Editor
+                    mode={codeLanguage}
+                    code={newPost.code || defaultCode}
+                    options={options}
+                    readOnly={false}
+                    onEditorChange={onEditorChange}
+                    onTextAreaChange={onTextAreaChange}
+                    textAreaValue={newPost.description}
+                    onModeChange={onModeChange}
+                    showOptions={true}
+                    height="200px"
+                    onPublish={publishPost}
+                />
+
+                <h1>Recent Posts</h1>
+                {posts?.map((post) => (
+                    <div key={post?._id} className={styles.postContainer}>
+                        <Avatar
+                            imageUrl={user.imageUrl}
+                            username={user.username}
+                            date="2 days ago"
+                        />
+                        <p className={styles.postDescription}>{post?.description}</p>
+
+                        {post?.code?.length && (
+                            <>
+                                <div className={styles.editorExtensionTop} />
+                                <CodeEditor
+                                    mode={post?.codeLanguage}
+                                    code={post?.code}
+                                    readOnly={true}
+                                    height="200px"
+                                />
+                                <div className={styles.editorExtensionBottom} />
+                            </>
+                        )}
+
+                        <div className={styles.postFooter}>
+                            <div className={styles.rateReviewIconContainer}>
+                                <RateReviewIcon />
+                                <span>10K Comments</span>
+                            </div>
+                            <div className={styles.reviewButtonContainer}>
+                                <Link href="/post/[post_id]" as={`/post/${post?._id}`}>
+                                    <a className={styles.reviewButton}> Comment </a>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </Layout>
+    );
+}
+
+export async function getServerSideProps() {
+    const END_POINT = process.env.API_ENDPOINT;
+    const response = await fetch(`${END_POINT}/posts`);
+    const { posts } = await response.json();
+    return { props: { posts } };
 }

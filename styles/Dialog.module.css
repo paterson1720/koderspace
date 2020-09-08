@@ -1,0 +1,10 @@
+.dialogContainer {
+    position: fixed;
+    top: 0;
+    z-index: 888;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: #000000b0;
+}
