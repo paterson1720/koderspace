@@ -14,7 +14,7 @@ function SideBar() {
     return (
         <section className={postPage ? styles.postPageSideBar : styles.sideBar}>
             <div className={postPage ? styles.postPageLogo : styles.logo}>
-                <img src="/koderlogo.png" alt="Logo" />
+                <img src={require('./koderlogo.png')} alt="Logo" />
             </div>
             <SideBarItem link="/" text="Home" icon={<HomeIcon />} />
             <SideBarItem link="#" text="Profile" icon={<PersonOutlineIcon />} />
