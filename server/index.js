@@ -8,6 +8,7 @@ const io = require('socket.io')(server);
 const router = require('./routes');
 const connectToDatabase = require('./config/databaseConnection');
 const initializeSocket = require('./socketManager');
+const initializePassport = require('./auth/passportInitializer');
 
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
@@ -18,6 +19,7 @@ initializeSocket(io);
 nextApp.prepare().then(() => {
     app.use(json());
     app.use(urlencoded({ extended: false }));
+    initializePassport(app);
 
     router(app);
     connectToDatabase();
