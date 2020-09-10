@@ -5,6 +5,6 @@ const service = require('../services/comments.service');
 const router = express.Router();
 
 router.post('/create', service.create);
-router.get('/:postId', service.findById);
+router.get('/:postId', service.findByPostId);
 
 module.exports = router;

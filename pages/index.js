@@ -12,11 +12,6 @@ import Avatar from '../components/Avatar';
 
 import HttpService from '../HttpService/index';
 
-const user = {
-    username: 'Sage',
-    email: '',
-    imageUrl: 'https://i.pinimg.com/originals/6c/09/0f/6c090f6bdb01fa8e15a6fcd3cd2f6043.jpg'
-};
 const options = [
     'JavaScript',
     'Java',
@@ -33,14 +28,14 @@ const options = [
 const defaultCode = `// Share some code with us...`;
 
 export default function Home(props) {
-    const socket = props.socket;
+    const { socket, user } = props;
     const [posts, setPosts] = useState(props.posts);
     const [codeLanguage, setCodeLanguage] = useState('javascript');
     const [newPost, setNewPost] = useState({ codeLanguage });
 
     const publishPost = async () => {
         const postIsValid = !!newPost.code || !!newPost.description;
-        const post = { ...newPost };
+        const post = { ...newPost, user: user?._id };
         if (post.code) post.code = post.code + '\r\r';
         if (!postIsValid) return alert('Post not valid!');
         const { error, data } = await HttpService.postData('/api/posts/create', post);
@@ -72,27 +67,29 @@ export default function Home(props) {
     return (
         <Layout>
             <div className={styles.container}>
-                <Editor
-                    mode={codeLanguage}
-                    code={newPost.code || defaultCode}
-                    options={options}
-                    readOnly={false}
-                    onEditorChange={onEditorChange}
-                    onTextAreaChange={onTextAreaChange}
-                    textAreaValue={newPost.description}
-                    onModeChange={onModeChange}
-                    showOptions={true}
-                    height="200px"
-                    onPublish={publishPost}
-                />
+                {user && (
+                    <Editor
+                        mode={codeLanguage}
+                        code={newPost.code || defaultCode}
+                        options={options}
+                        readOnly={false}
+                        onEditorChange={onEditorChange}
+                        onTextAreaChange={onTextAreaChange}
+                        textAreaValue={newPost.description}
+                        onModeChange={onModeChange}
+                        showOptions={true}
+                        height="200px"
+                        onPublish={publishPost}
+                    />
+                )}
 
-                <h1>Recent Posts</h1>
+                {/*   <h1>Recent Posts</h1> */}
                 {posts?.map((post) => (
                     <div key={post?._id} className={styles.postContainer}>
                         <Avatar
-                            imageUrl={user.imageUrl}
-                            username={user.username}
-                            date="2 days ago"
+                            imageUrl={post.user.picture}
+                            username={post?.user?.fullName}
+                            date={post?.createdAt}
                         />
                         <p className={styles.postDescription}>{post?.description}</p>
 

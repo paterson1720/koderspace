@@ -20,12 +20,9 @@ import 'ace-builds/src-noconflict/mode-css';
 import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
-// import styles from '../styles/Editor.module.css';
-
 function CodeEditor({ mode, code, onChange, readOnly, height }) {
     return (
         <>
-            {/* <div className={styles.editorExtensionTop} /> */}
             <AceEditor
                 value={code}
                 mode={mode}
@@ -45,7 +42,6 @@ function CodeEditor({ mode, code, onChange, readOnly, height }) {
                     showGutter: false
                 }}
             />
-            {/* <div className={styles.editorExtensionBottom} /> */}
         </>
     );
 }

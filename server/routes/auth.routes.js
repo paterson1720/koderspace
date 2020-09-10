@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 
 const GoogleStrategy = require('../auth/strategies/google');
+// const { signToken } = require('../auth/authenticationConfig');
 
 const router = express.Router();
 
@@ -17,9 +18,8 @@ router.get('/google', passport.authenticate('google', { scope }));
 router.get(
     '/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
-    function (req, res) {
-        console.log('USER IN REQUEST', req.user);
-        res.redirect('/testPage');
+    (req, res) => {
+        return res.status(200).redirect('/');
     }
 );
 

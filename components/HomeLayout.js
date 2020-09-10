@@ -14,7 +14,11 @@ function Layout({ children: content }) {
                     <Header />
                     {content}
                 </section>
-                <SideBar />
+                <section className="tagsContainer">
+                    <span>CSS</span>
+                    <span>React</span>
+                    <span>Javascript</span>
+                </section>
             </div>
         </main>
     );

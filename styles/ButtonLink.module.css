@@ -1,0 +1,28 @@
+.buttonLinkContainer {
+    width: 90%;
+    background-color: dodgerblue;
+    border-radius: 99px;
+    margin-bottom: 10px;
+}
+
+.buttonLinkContainer:hover {
+    opacity: 0.8;
+}
+
+.linkContent {
+    width: 100%;
+    display: flex;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.buttonLinkIconContainer {
+    padding: 0 15px;
+}
+
+.buttonLinkText {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+}

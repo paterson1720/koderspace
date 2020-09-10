@@ -8,7 +8,7 @@ const io = require('socket.io')(server);
 const router = require('./routes');
 const connectToDatabase = require('./config/databaseConnection');
 const initializeSocket = require('./socketManager');
-const initializePassport = require('./auth/passportInitializer');
+const { initializeAuthentication } = require('./auth/authenticationConfig');
 
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
@@ -19,12 +19,18 @@ initializeSocket(io);
 nextApp.prepare().then(() => {
     app.use(json());
     app.use(urlencoded({ extended: false }));
-    initializePassport(app);
+    initializeAuthentication(app);
 
     router(app);
     connectToDatabase();
 
-    app.get('/', (req, res) => nextApp.render(req, res, '/index', req.query));
+    app.get('/', (req, res) => {
+        return nextApp.render(req, res, '/index', req.query);
+    });
+    app.get('/logout', (req, res) => {
+        req.logout();
+        res.redirect('/');
+    });
     app.all('*', (req, res) => handle(req, res));
 
     const port = parseInt(process.env.PORT, 10) || 3030;

@@ -6,6 +6,11 @@
     border-radius: 10px;
 }
 
+.comment p {
+    margin: 0px !important;
+    margin-top: 5px !important;
+}
+
 .comment a {
     color: dodgerblue;
     text-decoration: underline;
@@ -14,4 +19,31 @@
 
 .comment code {
     color: rgb(155, 153, 153);
+}
+
+.commentAvatarContainer {
+    display: flex;
+    border-bottom: 0.5px solid #0e243e;
+    padding-bottom: 3px;
+}
+
+.commenterName {
+    color: dodgerblue;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-top: 5px;
+    font-weight: 600;
+    display: block;
+    text-decoration: unset !important;
+}
+
+.commenterName:hover {
+    opacity: 0.8;
+}
+
+.commentTime {
+    font-size: 10px;
+    color: gray;
+    margin-left: 5px;
+    margin-top: 10px;
 }

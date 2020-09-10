@@ -8,7 +8,8 @@ const PostSchema = new Schema(
     {
         description: { type: String },
         codeLanguage: { type: String },
-        code: { type: String }
+        code: { type: String },
+        user: { type: Schema.Types.ObjectId, ref: 'User' }
     },
     { timestamps: true }
 );

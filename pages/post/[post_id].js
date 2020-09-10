@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react';
+import moment from 'moment';
 
 import MarkDownTextArea from '../../components/MarkDownTextArea';
 import CodeEditor from '../../components/CodeEditor';
@@ -10,20 +11,14 @@ import styles from '../../styles/Post.module.css';
 
 import HttpService from '../../HttpService/index';
 
-const user = {
-    username: 'Sage',
-    email: '',
-    imageUrl: 'https://i.pinimg.com/originals/6c/09/0f/6c090f6bdb01fa8e15a6fcd3cd2f6043.jpg'
-};
-
 function PostDetails(props) {
-    const { post, postComments, socket } = props;
+    const { post, postComments, socket, user } = props;
     const [comments, setComments] = useState(postComments);
     const [newComment, setNewComment] = useState({});
     const commentsRef = useRef(comments);
 
     const handleComment = async () => {
-        const comment = { ...newComment, postId: post._id };
+        const comment = { ...newComment, postId: post._id, user: user._id };
         if (!comment.description) return alert('Comment not valid');
         const { error, data } = await HttpService.postData('/api/comments/create', comment);
         if (error) alert('Oops! An error happen, please try again.');
@@ -57,9 +52,9 @@ function PostDetails(props) {
             <div className={styles.container}>
                 <div key={post?._id} className={styles.postContainer}>
                     <Avatar
-                        imageUrl={user.imageUrl}
-                        username={user.username}
-                        date={post?.createdAt}
+                        imageUrl={post?.user?.picture}
+                        username={post?.user?.fullName}
+                        date={moment(post?.createdAt).fromNow()}
                     />
                     <p className={styles.postDescription}>{post?.description}</p>
 
@@ -86,8 +81,8 @@ function PostDetails(props) {
                 </div>
                 <div className={styles.commentContainer}>
                     <div className={styles.comments}>
-                        {comments?.map((comment, index) => (
-                            <Comment key={index} comment={comment?.description} />
+                        {comments?.map((comment) => (
+                            <Comment key={comment._id} comment={comment} />
                         ))}
                     </div>
                     <div className={styles.textAreaAndButtonWrapper}>
