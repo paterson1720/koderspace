@@ -118,8 +118,47 @@
 }
 
 .postPageNavBar {
+    display: flex;
+    justify-content: space-between;
     width: 100vw;
-    height: 40px;
+    height: 50px;
     background-color: #010f1f;
     margin-bottom: 10px;
+}
+
+.postPageNavBar a img {
+    width: 60px;
+    height: 50px;
+    margin-left: 20px;
+}
+
+.navBarAvatarContainer {
+    display: flex;
+    justify-content: center;
+    place-items: center;
+    background-color: #263341;
+    border-radius: 99px;
+    padding: 0px 5px;
+    padding-right: 10px;
+    margin: 5px;
+    margin-right: 50px;
+}
+
+.navBarUserName a {
+    margin-left: 5px;
+    color: dodgerblue;
+    text-decoration: none;
+    font-weight: 300;
+}
+
+.jumpToBottomButton {
+    background-color: dodgerblue !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.jumpToBottomButton::before {
+    content: '▼';
+    color: white;
 }

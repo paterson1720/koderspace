@@ -1,15 +1,17 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 import MarkDownTextArea from '../../components/MarkDownTextArea';
 import CodeEditor from '../../components/CodeEditor';
-import Avatar from '../../components/Avatar';
+import CustomAvatar from '../../components/Avatar';
 import Comment from '../../components/Comment';
 
 import styles from '../../styles/Post.module.css';
 
 import HttpService from '../../HttpService/index';
+import { Link, Avatar } from '@material-ui/core';
 
 function PostDetails(props) {
     const { post, postComments, socket, user } = props;
@@ -48,10 +50,26 @@ function PostDetails(props) {
 
     return (
         <>
-            <div className={styles.postPageNavBar}>Post Page Header</div>
+            <div className={styles.postPageNavBar}>
+                <Link href="/">
+                    <a>
+                        <img src={require('../../public/koderlogo.png')} alt="Logo" />
+                    </a>
+                </Link>
+                {user && (
+                    <div className={styles.navBarAvatarContainer}>
+                        <Avatar src={user?.picture} style={{ width: '30px', height: '30px' }} />
+                        <span className={styles.navBarUserName}>
+                            <Link>
+                                <a>{user?.fullName}</a>
+                            </Link>
+                        </span>
+                    </div>
+                )}
+            </div>
             <div className={styles.container}>
                 <div key={post?._id} className={styles.postContainer}>
-                    <Avatar
+                    <CustomAvatar
                         imageUrl={post?.user?.picture}
                         username={post?.user?.fullName}
                         date={moment(post?.createdAt).fromNow()}
@@ -80,11 +98,14 @@ function PostDetails(props) {
                 </div> */}
                 </div>
                 <div className={styles.commentContainer}>
-                    <div className={styles.comments}>
+                    <ScrollToBottom
+                        className={styles.comments}
+                        followButtonClassName={styles.jumpToBottomButton}>
                         {comments?.map((comment) => (
                             <Comment key={comment._id} comment={comment} />
                         ))}
-                    </div>
+                    </ScrollToBottom>
+
                     <div className={styles.textAreaAndButtonWrapper}>
                         <MarkDownTextArea
                             value={newComment?.description}

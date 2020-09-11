@@ -21,6 +21,10 @@
     color: rgb(155, 153, 153);
 }
 
+.comment pre {
+    background: #263341 !important;
+}
+
 .commentAvatarContainer {
     display: flex;
     border-bottom: 0.5px solid #0e243e;
@@ -34,7 +38,6 @@
     margin-top: 5px;
     font-weight: 600;
     display: block;
-    text-decoration: unset !important;
 }
 
 .commenterName:hover {

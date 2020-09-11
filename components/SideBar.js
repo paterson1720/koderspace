@@ -14,7 +14,7 @@ function SideBar() {
     return (
         <section className={styles.sideBar}>
             <div className={styles.logo}>
-                <img src={require('./koderlogo.png')} alt="Logo" />
+                <img src={require('../public/koderlogo.png')} alt="Logo" />
             </div>
             {user ? (
                 <>
