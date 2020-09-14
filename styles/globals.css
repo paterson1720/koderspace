@@ -25,6 +25,10 @@ code {
     padding: 10px;
 }
 
+.ace_placeholder {
+    margin-top: 10px !important;
+}
+
 .ace-monokai {
     background-color: #263341 !important;
 }

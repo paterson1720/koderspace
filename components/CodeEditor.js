@@ -20,11 +20,12 @@ import 'ace-builds/src-noconflict/mode-css';
 import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
-function CodeEditor({ mode, code, onChange, readOnly, height }) {
+function CodeEditor({ mode, code, onChange, readOnly, height, placeholder }) {
     return (
         <>
             <AceEditor
                 value={code}
+                placeholder={placeholder}
                 mode={mode}
                 readOnly={readOnly}
                 height={height}

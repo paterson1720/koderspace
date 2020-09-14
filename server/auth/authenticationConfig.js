@@ -1,6 +1,6 @@
 const passport = require('passport');
 const session = require('express-session');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
 const userService = require('../services/users.service');
@@ -28,6 +28,8 @@ const initializeAuthentication = (app) => {
     });
 };
 
+const authenticateUser = () => passport.authenticate('jwt', { failureRedirect: '/login' });
+
 function ensureAuthentication(req, res, next) {
     if (req.user) {
         next();
@@ -36,4 +38,10 @@ function ensureAuthentication(req, res, next) {
     }
 }
 
-module.exports = { initializeAuthentication, ensureAuthentication };
+const signToken = (user) => {
+    return jwt.sign({ data: user }, process.env.JWT_SECRET, {
+        expiresIn: 604800
+    });
+};
+
+module.exports = { initializeAuthentication, ensureAuthentication, signToken, authenticateUser };

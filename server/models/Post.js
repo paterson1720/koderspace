@@ -6,10 +6,11 @@ const { Schema } = mongoose;
 
 const PostSchema = new Schema(
     {
+        user: { type: Schema.Types.ObjectId, ref: 'User' },
         description: { type: String },
         codeLanguage: { type: String },
         code: { type: String },
-        user: { type: Schema.Types.ObjectId, ref: 'User' }
+        images: [String]
     },
     { timestamps: true }
 );

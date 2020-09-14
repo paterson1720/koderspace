@@ -14,15 +14,19 @@ import HttpService from '../../HttpService/index';
 import { Link, Avatar } from '@material-ui/core';
 
 function PostDetails(props) {
-    const { post, postComments, socket, user } = props;
-    const [comments, setComments] = useState(postComments);
+    const { post, socket, user } = props;
+    const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({});
+    const [loading, setLoading] = useState(false);
     const commentsRef = useRef(comments);
 
     const handleComment = async () => {
+        if (loading) return;
         const comment = { ...newComment, postId: post._id, user: user._id };
         if (!comment.description) return alert('Comment not valid');
+        setLoading(true);
         const { error, data } = await HttpService.postData('/api/comments/create', comment);
+        setLoading(false);
         if (error) alert('Oops! An error happen, please try again.');
         setComments([...comments, data.comment]);
         socket.emit('NEW_COMMENT', data.comment);
@@ -40,6 +44,16 @@ function PostDetails(props) {
     useEffect(() => {
         commentsRef.current = comments;
     });
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            const commentsResponse = await fetch(`/api/comments/${post._id}`);
+            const { comments } = await commentsResponse.json();
+            setComments(comments);
+        };
+        fetchComments();
+    }, []);
+
     useEffect(() => {
         socket.emit('JOIN_COMMENT', post._id);
         socket.on('NEW_COMMENT', commentHandler);
@@ -111,7 +125,10 @@ function PostDetails(props) {
                             value={newComment?.description}
                             onChange={handleCommentTextAreaChange}
                         />
-                        <button className={styles.commentButton} onClick={handleComment}>
+                        <button
+                            className={styles.commentButton}
+                            onClick={handleComment}
+                            disabled={loading}>
                             Add Comment
                         </button>
                     </div>
@@ -127,8 +144,6 @@ export async function getServerSideProps(context) {
     const END_POINT = process.env.API_ENDPOINT;
     const { post_id } = context.params;
     const postResponse = await fetch(`${END_POINT}/posts/${post_id}`);
-    const commentsResponse = await fetch(`${END_POINT}/comments/${post_id}`);
     const { post } = await postResponse.json();
-    const { comments } = await commentsResponse.json();
-    return { props: { post, postComments: comments } };
+    return { props: { post } };
 }

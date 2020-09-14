@@ -1,11 +1,12 @@
 const express = require('express');
 
 const service = require('../services/posts.service');
+const { upload } = require('../services/upload.service');
 
 const router = express.Router();
 
 router.get('/', service.findAll);
 router.get('/:post_id', service.findById);
-router.post('/create', service.create);
+router.post('/create', upload().array('file'), service.create);
 
 module.exports = router;

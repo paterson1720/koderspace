@@ -8,7 +8,7 @@ const io = require('socket.io')(server);
 const router = require('./routes');
 const connectToDatabase = require('./config/databaseConnection');
 const initializeSocket = require('./socketManager');
-const { initializeAuthentication } = require('./auth/authenticationConfig');
+const { initializeAuthentication, authenticateUser } = require('./auth/authenticationConfig');
 
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
@@ -24,7 +24,7 @@ nextApp.prepare().then(() => {
     router(app);
     connectToDatabase();
 
-    app.get('/', (req, res) => {
+    app.get('/', authenticateUser(), (req, res) => {
         return nextApp.render(req, res, '/index', req.query);
     });
     app.get('/logout', (req, res) => {

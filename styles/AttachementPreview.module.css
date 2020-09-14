@@ -1,0 +1,30 @@
+.imageItemPreview {
+    min-height: 100%;
+    flex: 1;
+    flex-basis: 20%;
+    margin: 4px;
+    border-radius: 5px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.removeImageButton {
+    border-radius: 50%;
+    height: 30px;
+    width: 31px;
+    background-color: #ff000061;
+    outline: none;
+    color: white;
+    border: none;
+}
+
+.removeImageButton:hover {
+    border-radius: 50%;
+    height: 30px;
+    width: 31px;
+    background-color: #ff0000b7;
+    outline: none;
+    color: white;
+    border: none;
+}

@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
+
+import ImageIcon from '@material-ui/icons/Image';
+import CodeOutlinedIcon from '@material-ui/icons/CodeOutlined';
 
 import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/mode-javascript';
@@ -22,9 +25,10 @@ import 'ace-builds/src-noconflict/ext-language_tools';
 import Select from './Select';
 import Button from './Button';
 import CodeEditor from './CodeEditor';
+import TextArea from './TextArea';
+import ImageAttachementPreview from './imageAttachementPreview';
 
 import styles from '../styles/Editor.module.css';
-import TextArea from './TextArea';
 
 function Editor({
     mode,
@@ -32,33 +36,78 @@ function Editor({
     options = [],
     onModeChange,
     onEditorChange,
+    editorPlaceHolder,
     onTextAreaChange,
     textAreaValue,
     readOnly,
     height,
-    onPublish
+    onPublish,
+    loading,
+    attachedImages,
+    setAttachedImages,
+    onImageIconClick
 }) {
+    const [showCodeEditor, setShowCodeEditor] = useState(false);
     return (
         <>
             <div className={styles.textAreaContainer}>
                 <TextArea
-                    placeholder="Write a description (optional)..."
+                    placeholder="Write a short description of your post..."
                     value={textAreaValue}
                     onChange={onTextAreaChange}
                 />
             </div>
 
+            {!loading && attachedImages && attachedImages.length ? (
+                <div className={styles.attachementPreviewContainer}>
+                    {attachedImages.map(({ url }, index) => (
+                        <ImageAttachementPreview
+                            key={index}
+                            src={url}
+                            onDelete={() => {
+                                const images = [...attachedImages];
+                                if (images.length <= 1) setAttachedImages([]);
+                                images.splice(index, 1);
+                                setAttachedImages(images);
+                            }}
+                        />
+                    ))}
+                </div>
+            ) : null}
+
             <div className={styles.editorHeader}>
-                <Select options={options} onChange={onModeChange} />
+                {showCodeEditor && <Select options={options} onChange={onModeChange} />}
+                <div
+                    role="button"
+                    tabIndex={-1}
+                    className={styles.iconContainer}
+                    onKeyDown={(e) => e.key === 'Enter' && setShowCodeEditor(!showCodeEditor)}
+                    onClick={() => setShowCodeEditor(!showCodeEditor)}>
+                    <CodeOutlinedIcon />
+                    {showCodeEditor ? 'Hide Code Editor' : 'Show Code Editor'}
+                </div>
+
+                <div
+                    role="button"
+                    tabIndex={-2}
+                    className={styles.iconContainer}
+                    onClick={onImageIconClick}
+                    onKeyDown={(e) => e.key === 'Enter' && onImageIconClick()}>
+                    <ImageIcon />
+                    Attach Images
+                </div>
             </div>
 
-            <CodeEditor
-                code={code}
-                mode={mode}
-                readOnly={readOnly}
-                height={height}
-                onChange={onEditorChange}
-            />
+            {showCodeEditor && (
+                <CodeEditor
+                    code={code}
+                    mode={mode}
+                    readOnly={readOnly}
+                    height={height}
+                    onChange={onEditorChange}
+                    placeholder={editorPlaceHolder}
+                />
+            )}
 
             <div className={styles.publishBtnContainer}>
                 <Button text="Publish" onClick={onPublish} />

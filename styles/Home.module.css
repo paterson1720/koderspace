@@ -83,3 +83,26 @@
     border: 1px solid rgb(2, 125, 248);
     background-color: rgb(39, 73, 107);
 }
+
+.imagesContainer {
+    display: flex;
+    width: 90%;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: #00000038;
+    padding: 4px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.imageItem {
+    min-height: 100%;
+    flex: 1;
+    flex-basis: 20%;
+    margin: 4px;
+    border-radius: 5px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

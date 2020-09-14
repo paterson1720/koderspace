@@ -1,0 +1,25 @@
+.loginPageLayout {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginPageLayout > h2 {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid dodgerblue;
+    width: 300px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.buttonsContainer {
+    width: 400px;
+    height: auto;
+}

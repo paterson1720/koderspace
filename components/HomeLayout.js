@@ -14,7 +14,8 @@ function Layout({ children: content }) {
                     <Header />
                     {content}
                 </section>
-                <section className="tagsContainer">
+                <section className={styles.tagsContainer}>
+                    <div>TAGS</div>
                     <span>CSS</span>
                     <span>React</span>
                     <span>Javascript</span>
