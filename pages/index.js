@@ -10,6 +10,7 @@ import Layout from '../components/HomeLayout';
 import CodeEditor from '../components/CodeEditor';
 import Editor from '../components/Editor';
 import Avatar from '../components/Avatar';
+import ImageViewer from '../components/ImageViewer';
 
 const options = [
     'JavaScript',
@@ -54,7 +55,6 @@ export default function Home(props) {
         const post = { ...newPost, user: user?._id };
         if (post.code) post.code = post.code + '\r\r';
         if (!postIsValid) return alert('Post not valid!');
-        console.log(post);
         setLoading(true);
         const result = await fetch('/api/posts/create', {
             method: 'POST',
@@ -138,13 +138,7 @@ export default function Home(props) {
 
                         {post?.images?.length ? (
                             <div className={styles.imagesContainer}>
-                                {post?.images?.map((src, index) => (
-                                    <div
-                                        className={styles.imageItem}
-                                        key={index}
-                                        style={{ backgroundImage: `url(${src})` }}
-                                    />
-                                ))}
+                                <ImageViewer images={post?.images} />
                             </div>
                         ) : null}
 
