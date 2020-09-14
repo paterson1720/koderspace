@@ -1,4 +1,5 @@
 const util = require('util');
+const path = require('path');
 const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
@@ -12,7 +13,8 @@ cloudinary.config({
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        console.log(__dirname);
+        cb(null, path.join(__dirname, '../../uploads/'));
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);
@@ -33,7 +35,6 @@ const uploadToCloudinary = async (path, options) => {
 
 const singleFileUpload = async (req, res) => {
     const { path } = req.file;
-    console.log('path', path);
     const options = { folder: `koderSpace` };
     const { isError, result } = await uploadToCloudinary(path, options);
     if (isError) return res.status(400).json(result);

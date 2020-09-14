@@ -25,7 +25,6 @@ const options = [
 ];
 
 const editorPlaceHolder = `// Share some code with us...`;
-const codeResetText = '// Write your code here ...';
 
 export default function Home(props) {
     const { socket, user } = props;
@@ -40,7 +39,7 @@ export default function Home(props) {
     const getFormData = () => {
         const formData = new FormData();
         formData.append('user', user?._id);
-        formData.append('code', newPost.code);
+        if (newPost?.code?.trim()) formData.append('code', newPost.code);
         formData.append('description', newPost.description);
         formData.append('codeLanguage', codeLanguage);
         if (attachedImages.length) {
@@ -55,6 +54,7 @@ export default function Home(props) {
         const post = { ...newPost, user: user?._id };
         if (post.code) post.code = post.code + '\r\r';
         if (!postIsValid) return alert('Post not valid!');
+        console.log(post);
         setLoading(true);
         const result = await fetch('/api/posts/create', {
             method: 'POST',
@@ -64,7 +64,7 @@ export default function Home(props) {
         setLoading(false);
         if (error) return alert('An error occured. Please try later');
         setAttachedImages([]);
-        setNewPost({ codeLanguage, description: '', code: codeResetText });
+        setNewPost({ codeLanguage, description: '', code: ' ' });
         socket.emit('NEW_POST', data);
         setPosts([data.post, ...posts]);
     };
@@ -136,7 +136,7 @@ export default function Home(props) {
                         />
                         <p className={styles.postDescription}>{post?.description}</p>
 
-                        {post?.images?.length && (
+                        {post?.images?.length ? (
                             <div className={styles.imagesContainer}>
                                 {post?.images?.map((src, index) => (
                                     <div
@@ -146,7 +146,7 @@ export default function Home(props) {
                                     />
                                 ))}
                             </div>
-                        )}
+                        ) : null}
 
                         {post?.code?.length && (
                             <>
