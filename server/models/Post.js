@@ -10,7 +10,8 @@ const PostSchema = new Schema(
         description: { type: String },
         codeLanguage: { type: String },
         code: { type: String },
-        images: [String]
+        images: [String],
+        commentsCount: { type: Number, default: 0 }
     },
     { timestamps: true }
 );

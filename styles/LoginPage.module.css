@@ -22,4 +22,6 @@
 .buttonsContainer {
     width: 400px;
     height: auto;
+    display: grid;
+    place-items: center;
 }

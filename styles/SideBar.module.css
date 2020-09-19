@@ -1,6 +1,6 @@
 .sideBar {
     min-height: 100vh;
-    flex: 0.4;
+    /* flex: 0.4; */
     width: 20%;
     margin-left: 20px;
 }
@@ -21,7 +21,7 @@
     width: 40%;
 }
 
-@media (max-width: 880px) {
+@media (max-width: 1000px) {
     .sideBar {
         display: none;
     }

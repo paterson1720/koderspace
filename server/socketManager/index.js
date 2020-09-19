@@ -11,7 +11,10 @@ module.exports = (io) =>
 
         socket.on('NEW_COMMENT', (data) => {
             const room = data.postId;
-            //io.sockets.in(room).emit('NEW_COMMENT', data);
             socket.broadcast.to(room).emit('NEW_COMMENT', data);
+        });
+
+        socket.on('COMMENT_DELETED', ({ commentId, room }) => {
+            socket.broadcast.to(room).emit('COMMENT_DELETED', commentId);
         });
     });

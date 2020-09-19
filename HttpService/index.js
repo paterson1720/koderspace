@@ -13,6 +13,17 @@ const service = {
         } catch (e) {
             return { error: e, data: null };
         }
+    },
+    async deleteData(url = '') {
+        try {
+            const response = await fetch(url, {
+                method: 'DELETE'
+            });
+            const json = await response.json();
+            return { error: null, data: json };
+        } catch (e) {
+            return { error: e, data: null };
+        }
     }
 };
 

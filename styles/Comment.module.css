@@ -50,3 +50,15 @@
     margin-left: 5px;
     margin-top: 10px;
 }
+
+.deleteCommentButton {
+    background: none;
+    border: none;
+    color: gray;
+    float: right;
+    cursor: pointer;
+}
+
+.deleteCommentButton:hover {
+    color: tomato;
+}

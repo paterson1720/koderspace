@@ -162,3 +162,40 @@
     content: '▼';
     color: white;
 }
+
+.imagesContainer {
+    display: flex;
+    width: 90%;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: #00000038;
+    padding: 4px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+@media (max-width: 1000px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+    .comments {
+        height: auto;
+    }
+
+    .postContainer {
+        margin: 0;
+    }
+
+    .commentContainer {
+        flex: 0.4 1;
+        min-height: auto;
+        position: relative;
+        background-color: #27334159;
+        padding: 5px 20px;
+        border-radius: 10px;
+        width: auto;
+        margin: 0;
+    }
+}

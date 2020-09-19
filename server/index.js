@@ -27,6 +27,7 @@ nextApp.prepare().then(() => {
     app.get('/', authenticateUser(), (req, res) => {
         return nextApp.render(req, res, '/index', req.query);
     });
+
     app.get('/logout', (req, res) => {
         req.logout();
         res.redirect('/');

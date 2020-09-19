@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 
 import RateReviewIcon from '@material-ui/icons/RateReview';
@@ -26,9 +26,11 @@ const options = [
 ];
 
 const editorPlaceHolder = `// Share some code with us...`;
+const formatNumber = (n) =>
+    Intl.NumberFormat('en-US', { notation: 'compact', compactDisplay: 'short' }).format(n);
 
 export default function Home(props) {
-    const { socket, user } = props;
+    const { user } = props;
     const [posts, setPosts] = useState(props.posts);
     const [codeLanguage, setCodeLanguage] = useState('javascript');
     const [newPost, setNewPost] = useState({ codeLanguage });
@@ -65,8 +67,7 @@ export default function Home(props) {
         if (error) return alert('An error occured. Please try later');
         setAttachedImages([]);
         setNewPost({ codeLanguage, description: '', code: ' ' });
-        socket.emit('NEW_POST', data);
-        setPosts([data.post, ...posts]);
+        setPosts([data, ...posts]);
     };
 
     const handleFileUpload = async (e) => {
@@ -91,15 +92,6 @@ export default function Home(props) {
     const onTextAreaChange = (e) => {
         setNewPost({ ...newPost, description: e.target.value });
     };
-
-    useEffect(() => {
-        socket.on('NEW_POST', (data) => {
-            setPosts([data, ...posts]);
-        });
-        return () => {
-            socket.off('NEW_POST');
-        };
-    }, []);
 
     return (
         <Layout>
@@ -158,7 +150,7 @@ export default function Home(props) {
                         <div className={styles.postFooter}>
                             <div className={styles.rateReviewIconContainer}>
                                 <RateReviewIcon />
-                                <span>10K Comments</span>
+                                <span>{formatNumber(post?.commentsCount)}</span>
                             </div>
                             <div className={styles.reviewButtonContainer}>
                                 <Link href="/post/[post_id]" as={`/post/${post?._id}`}>

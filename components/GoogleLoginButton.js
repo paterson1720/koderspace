@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) =>
             borderRadius: theme.shape.borderRadius,
             boxShadow: theme.shadows[1],
             height: '36px',
+            width: '250px',
             cursor: 'pointer',
             textDecoration: 'none',
             '&:hover': {
