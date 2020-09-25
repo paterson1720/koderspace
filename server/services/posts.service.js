@@ -1,5 +1,6 @@
 const Model = require('../models/Post');
 const { uploadToCloudinary } = require('./upload.service');
+const CommentModel = require('../models/Comment');
 
 const storeFiles = async (files) => {
     if (!files.length) return { error: null, results: [] };
@@ -28,8 +29,8 @@ const service = {
 
     async findById(req, res) {
         try {
-            const { post_id } = req.params;
-            const post = await Model.findById(post_id).populate('user').lean();
+            const { postId } = req.params;
+            const post = await Model.findById(postId).populate('user').lean();
             res.status(200).json({ post }).end();
         } catch (error) {
             res.status(400).json({ error, post: null }).end();
@@ -49,6 +50,29 @@ const service = {
             res.status(200).json({ post, error: null }).end();
         } catch (error) {
             res.status(400).json({ error, post: null }).end();
+        }
+    },
+    async editPost(req, res) {
+        try {
+            const { postId } = req.params;
+            console.log(postId);
+            const data = req.body;
+            console.log(data);
+            const post = await Model.findByIdAndUpdate(postId, data);
+            res.status(200).json({ post, error: null }).end();
+        } catch (error) {
+            res.status(400).json({ error, post: null }).end();
+        }
+    },
+
+    async deleteById(req, res) {
+        try {
+            const { postId } = req.params;
+            await Model.deleteOne({ _id: postId });
+            await CommentModel.deleteMany({ postId });
+            res.status(200).json({ deleted: true, error: null }).end();
+        } catch (error) {
+            res.status(400).json({ error, deleted: false }).end();
         }
     }
 };

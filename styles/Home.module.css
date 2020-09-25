@@ -95,3 +95,18 @@
     margin-bottom: 10px;
     border-radius: 5px;
 }
+
+.actionButtonsContainer {
+    color: gray;
+}
+
+.deletePostButton {
+    margin-top: 5px;
+    border: none;
+    background: none;
+    color: gray;
+}
+
+.deletePostButton:hover {
+    color: tomato;
+}

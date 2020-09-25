@@ -6,7 +6,9 @@ const { upload } = require('../services/upload.service');
 const router = express.Router();
 
 router.get('/', service.findAll);
-router.get('/:post_id', service.findById);
+router.get('/:postId', service.findById);
 router.post('/create', upload().array('file'), service.create);
+router.post('/edit/:postId', service.editPost);
+router.delete('/:postId', service.deleteById);
 
 module.exports = router;
