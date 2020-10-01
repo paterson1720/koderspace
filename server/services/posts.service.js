@@ -37,6 +37,16 @@ const service = {
         }
     },
 
+    async findByUserId(req, res) {
+        try {
+            const { userId } = req.params;
+            const posts = await Model.find({ user: userId }).populate('user').lean();
+            res.status(200).json({ posts }).end();
+        } catch (error) {
+            res.status(400).json({ error, posts: null }).end();
+        }
+    },
+
     async create(req, res) {
         try {
             let data = { ...req.body };
@@ -46,7 +56,6 @@ const service = {
             if (error) return res.status(200).json({ post: null, error });
             let post = await Model.create(data);
             post = await post.populate('user').execPopulate();
-            console.log(post);
             res.status(200).json({ post, error: null }).end();
         } catch (error) {
             res.status(400).json({ error, post: null }).end();
@@ -55,9 +64,7 @@ const service = {
     async editPost(req, res) {
         try {
             const { postId } = req.params;
-            console.log(postId);
             const data = req.body;
-            console.log(data);
             const post = await Model.findByIdAndUpdate(postId, data);
             res.status(200).json({ post, error: null }).end();
         } catch (error) {

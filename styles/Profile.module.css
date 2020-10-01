@@ -1,0 +1,80 @@
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 20px;
+    background-image: linear-gradient(45deg, #062a50, #081a2d, black);
+}
+
+.avatarStyle {
+    width: 130px;
+    height: 130px;
+}
+
+.userName {
+    margin-bottom: 5px;
+}
+
+.grayText {
+    color: #8799a6;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.grayText > span {
+    display: flex;
+    margin-left: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.grayText > span a {
+    color: rgb(40, 140, 240);
+}
+
+.userBio {
+    width: 80%;
+    text-align: center;
+    color: #cecccc;
+}
+
+.editProfileButton {
+    background: none;
+    border: 1px solid dodgerblue;
+    color: dodgerblue;
+    height: 30px;
+    border-radius: 20px;
+    padding: 0 10px;
+    font-weight: 700;
+    outline: none;
+}
+
+.editProfileButton:hover {
+    background-color: #062a50;
+}
+
+.userPostsContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statsContainer {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.statsContainer p {
+    color: #8799a6;
+    margin: 5px;
+}
+
+.statsContainer span {
+    color: #cecccc;
+    margin: 3px;
+}

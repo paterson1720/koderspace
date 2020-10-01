@@ -10,7 +10,7 @@ function SideBarItem({ link, displayLink, text, icon }) {
     const router = useRouter();
 
     useEffect(() => {
-        setIsActive(router.pathname === link);
+        setIsActive(router.asPath == link || router.pathname === link);
         return () => {
             setIsActive(false);
         };

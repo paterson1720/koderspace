@@ -1,39 +1,24 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useRef } from 'react';
-import Link from 'next/link';
 
-import RateReviewIcon from '@material-ui/icons/RateReview';
 import { CircularProgress } from '@material-ui/core';
 
 import Layout from '../components/HomeLayout';
-import CodeEditor from '../components/CodeEditor';
 import Editor from '../components/Editor';
-import Avatar from '../components/Avatar';
-import ImageViewer from '../components/ImageViewer';
-
+import Post from '../components/Post';
 import styles from '../styles/Home.module.css';
-import HttpService from '../HttpService';
-import ConfirmDialog from '../components/ConfirmDialog';
 
 import { options } from '../variables';
-import PostEditor from '../components/PostEditor';
 
 const editorPlaceHolder = `// Share some code with us...`;
-const formatNumber = (n) =>
-    Intl.NumberFormat('en-US', { notation: 'compact', compactDisplay: 'short' }).format(n);
 
 export default function Home(props) {
     const { user } = props;
     const [posts, setPosts] = useState(props.posts);
-    const [postToEdit, setPostToEdit] = useState(null);
-    const [postToDelete, setPostToDelete] = useState(null);
     const [codeLanguage, setCodeLanguage] = useState('javascript');
     const [newPost, setNewPost] = useState({ codeLanguage });
     const [attachedImages, setAttachedImages] = useState([]);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [openPostEditor, setOpenPostEditor] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [editing, setEditing] = useState(false);
 
     const inputImageRef = useRef(null);
 
@@ -87,23 +72,6 @@ export default function Home(props) {
         setPosts(posts);
     };
 
-    const handleDeletePost = async (id) => {
-        const { error, data } = await HttpService.deleteData(`/api/posts/${id}`);
-        if (error || data.error) return alert('Oops! An error happen, please try again.');
-        await fetchPosts();
-        setOpenDialog(false);
-    };
-
-    const handlePostEditComplete = () => {
-        setOpenPostEditor(false);
-        fetchPosts();
-    };
-
-    const handleEditPostClick = (post) => {
-        setPostToEdit(post);
-        setEditing(true);
-        setOpenPostEditor(true);
-    };
     const onModeChange = (e) => {
         setCodeLanguage(e.target.value);
     };
@@ -141,85 +109,9 @@ export default function Home(props) {
                 )}
 
                 {posts?.map((post) => (
-                    <div key={post?._id} className={styles.postContainer}>
-                        <Avatar
-                            imageUrl={post?.user.picture}
-                            username={post?.user?.fullName}
-                            date={post?.createdAt}
-                        />
-                        <p className={styles.postDescription}>{post?.description}</p>
-
-                        {post?.images?.length ? (
-                            <div className={styles.imagesContainer}>
-                                <ImageViewer images={post?.images} />
-                            </div>
-                        ) : null}
-
-                        {post?.code?.length && (
-                            <>
-                                <div className={styles.editorExtensionTop} />
-                                <CodeEditor
-                                    mode={post?.codeLanguage}
-                                    code={post?.code}
-                                    readOnly={true}
-                                    height="200px"
-                                />
-                                <div className={styles.editorExtensionBottom} />
-                            </>
-                        )}
-
-                        <div className={styles.postFooter}>
-                            <div className={styles.rateReviewIconContainer}>
-                                <RateReviewIcon />
-                                <span>{formatNumber(post?.commentsCount)}</span>
-                            </div>
-                            <div className={styles.reviewButtonContainer}>
-                                <Link href="/post/[post_id]" as={`/post/${post?._id}`}>
-                                    <a className={styles.reviewButton}> Comment </a>
-                                </Link>
-                            </div>
-                        </div>
-                        {user?._id === post?.user?._id && (
-                            <div className={styles.actionButtonsContainer}>
-                                <button
-                                    className={styles.deletePostButton}
-                                    onClick={() => {
-                                        handleEditPostClick(post);
-                                    }}>
-                                    Edit
-                                </button>
-                                {' | '}
-                                <button
-                                    className={styles.deletePostButton}
-                                    onClick={() => {
-                                        setPostToDelete(post._id);
-                                        setOpenDialog(true);
-                                    }}>
-                                    Delete
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                    <Post post={post} user={user} fetchPosts={fetchPosts} key={post?._id} />
                 ))}
             </div>
-
-            <ConfirmDialog
-                title="Are you sure you want to delete this post ?"
-                open={openDialog}
-                setOpen={setOpenDialog}
-                onConfirm={() => handleDeletePost(postToDelete)}
-            />
-            {editing && (
-                <PostEditor
-                    title="Edit Post"
-                    open={openPostEditor}
-                    setOpen={setOpenPostEditor}
-                    setEditing={setEditing}
-                    post={postToEdit}
-                    user={user}
-                    handlePostEditComplete={handlePostEditComplete}
-                />
-            )}
 
             <input
                 type="file"

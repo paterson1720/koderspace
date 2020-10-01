@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import ScrollToBottom from 'react-scroll-to-bottom';
+import Link from 'next/link';
 
 import MarkDownTextArea from '../../components/MarkDownTextArea';
 import CodeEditor from '../../components/CodeEditor';
@@ -11,7 +12,7 @@ import Comment from '../../components/Comment';
 import styles from '../../styles/Post.module.css';
 
 import HttpService from '../../HttpService/index';
-import { Link, Avatar } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 import ImageViewer from '../../components/ImageViewer';
 
 function PostDetails(props) {
@@ -85,7 +86,7 @@ function PostDetails(props) {
     return (
         <>
             <div className={styles.postPageNavBar}>
-                <Link href="/">
+                <Link href="/" as="/">
                     <a>
                         <img src={require('../../public/koderlogo.png')} alt="Logo" />
                     </a>
@@ -94,7 +95,7 @@ function PostDetails(props) {
                     <div className={styles.navBarAvatarContainer}>
                         <Avatar src={user?.picture} style={{ width: '30px', height: '30px' }} />
                         <span className={styles.navBarUserName}>
-                            <Link>
+                            <Link href={`/${user?.userName}`}>
                                 <a>{user?.fullName}</a>
                             </Link>
                         </span>
@@ -107,6 +108,7 @@ function PostDetails(props) {
                         imageUrl={post?.user?.picture}
                         username={post?.user?.fullName}
                         date={moment(post?.createdAt).fromNow()}
+                        href={`/${post?.user?.userName}`}
                     />
                     <p className={styles.postDescription}>{post?.description}</p>
 
@@ -126,6 +128,8 @@ function PostDetails(props) {
                                 code={post?.code}
                                 readOnly={true}
                                 height="60vh"
+                                showGutter={true}
+                                showLineNumbers={true}
                             />
                             <div className={styles.editorExtensionBottom} />
                         </>

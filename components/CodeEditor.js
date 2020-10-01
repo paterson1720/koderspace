@@ -20,7 +20,16 @@ import 'ace-builds/src-noconflict/mode-css';
 import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
-function CodeEditor({ mode, code, onChange, readOnly, height, placeholder }) {
+function CodeEditor({
+    mode,
+    code,
+    onChange,
+    readOnly,
+    height,
+    placeholder,
+    showGutter,
+    showLineNumbers
+}) {
     return (
         <>
             <AceEditor
@@ -39,8 +48,8 @@ function CodeEditor({ mode, code, onChange, readOnly, height, placeholder }) {
                     enableBasicAutocompletion: true,
                     enableLiveAutocompletion: true,
                     enableSnippets: true,
-                    showLineNumbers: false,
-                    showGutter: false
+                    showLineNumbers: showLineNumbers,
+                    showGutter: showGutter
                 }}
             />
         </>

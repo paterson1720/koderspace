@@ -22,7 +22,9 @@ function Comment({ comment, onDelete }) {
                     style={{ width: '30px', height: '30px' }}
                 />
                 <Link>
-                    <a className={styles.commenterName}>{comment?.user?.fullName}</a>
+                    <a className={styles.commenterName} href={`/${comment?.user?.userName}`}>
+                        {comment?.user?.fullName}
+                    </a>
                 </Link>
                 <span className={styles.commentTime}> {moment(comment?.createdAt).fromNow()}</span>
             </div>

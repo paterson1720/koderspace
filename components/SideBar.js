@@ -1,10 +1,15 @@
 import React, { useContext } from 'react';
+import Link from 'next/link';
+
+import { Avatar } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-import styles from '../styles/SideBar.module.css';
 import SideBarItem from './SideBarItem';
 import ButtonLink from './ButtonLink';
+
+import styles from '../styles/SideBar.module.css';
 
 import { GlobalContext } from '../pages/_app';
 
@@ -19,7 +24,23 @@ function SideBar() {
             {user ? (
                 <>
                     <SideBarItem link="/" text="Home" icon={<HomeIcon />} />
-                    <SideBarItem link="#" text="Profile" icon={<PersonOutlineIcon />} />
+                    <SideBarItem
+                        link={`/${user.userName}`}
+                        text="Profile"
+                        icon={<PersonOutlineIcon />}
+                    />
+                    <div className={styles.sideBarAvatarContainer}>
+                        <Avatar src={user?.picture} />
+                        <div>
+                            <span>{user?.fullName}</span>
+                            <small>@{user?.userName}</small>
+                            <Link href="/logout">
+                                <a>
+                                    <ExitToAppIcon /> Log out
+                                </a>
+                            </Link>
+                        </div>
+                    </div>
                 </>
             ) : (
                 <>

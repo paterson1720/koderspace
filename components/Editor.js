@@ -4,24 +4,6 @@ import React, { useState } from 'react';
 import ImageIcon from '@material-ui/icons/Image';
 import CodeOutlinedIcon from '@material-ui/icons/CodeOutlined';
 
-import 'ace-builds/src-noconflict/mode-java';
-import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/mode-ruby';
-import 'ace-builds/src-noconflict/mode-python';
-import 'ace-builds/src-noconflict/mode-xml';
-import 'ace-builds/src-noconflict/mode-sass';
-import 'ace-builds/src-noconflict/mode-markdown';
-import 'ace-builds/src-noconflict/mode-mysql';
-import 'ace-builds/src-noconflict/mode-json';
-import 'ace-builds/src-noconflict/mode-html';
-import 'ace-builds/src-noconflict/mode-handlebars';
-import 'ace-builds/src-noconflict/mode-golang';
-import 'ace-builds/src-noconflict/mode-csharp';
-import 'ace-builds/src-noconflict/mode-coffee';
-import 'ace-builds/src-noconflict/mode-css';
-import 'ace-builds/src-noconflict/theme-monokai';
-import 'ace-builds/src-noconflict/ext-language_tools';
-
 import Select from './Select';
 import Button from './Button';
 import CodeEditor from './CodeEditor';
@@ -45,7 +27,9 @@ function Editor({
     loading,
     attachedImages,
     setAttachedImages,
-    onImageIconClick
+    onImageIconClick,
+    showLineNumbers,
+    showGutter
 }) {
     const [showCodeEditor, setShowCodeEditor] = useState(false);
     return (
@@ -106,6 +90,8 @@ function Editor({
                     height={height}
                     onChange={onEditorChange}
                     placeholder={editorPlaceHolder}
+                    showGutter={showGutter}
+                    showLineNumbers={showLineNumbers}
                 />
             )}
 

@@ -11,9 +11,14 @@ const UserSchema = new Schema(
         givenName: { type: String },
         familyName: { type: String },
         email: { type: String },
+        biography: { type: String },
         provider: { type: String },
         providerId: { type: String },
         picture: { type: String },
+        location: { type: String },
+        website: { type: String },
+        followersCount: { type: Number, default: 0 },
+        followedUsersCount: { type: Number, default: 0 },
         code: { type: String }
     },
     { timestamps: true }

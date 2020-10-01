@@ -21,6 +21,40 @@
     width: 40%;
 }
 
+.sideBarAvatarContainer {
+    position: sticky;
+    top: 85vh;
+    display: flex;
+}
+
+.sideBarAvatarContainer > div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+
+.sideBarAvatarContainer > div span {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sideBarAvatarContainer > div small {
+    color: gray;
+    flex-direction: column;
+}
+
+.sideBarAvatarContainer a {
+    display: flex;
+    align-items: center;
+    color: dodgerblue;
+    margin-top: 5px;
+}
+
+.sideBarAvatarContainer a:hover {
+    color: rgb(104, 175, 247);
+}
+
 @media (max-width: 1000px) {
     .sideBar {
         display: none;

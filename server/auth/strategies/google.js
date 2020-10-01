@@ -15,6 +15,7 @@ const verifyUser = async (accessToken, refreshToken, profile, done) => {
     const userData = {
         provider,
         providerId: id,
+        userName: _json.given_name,
         givenName: _json.given_name,
         familyName: _json.family_name,
         fullName: _json.name,
