@@ -105,6 +105,7 @@ export default function Home(props) {
                         attachedImages={attachedImages}
                         setAttachedImages={setAttachedImages}
                         onImageIconClick={() => inputImageRef.current.click()}
+                        showLineNumbers={true}
                     />
                 )}
 

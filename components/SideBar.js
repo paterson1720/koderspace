@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import Link from 'next/link';
 
 import { Avatar } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 
 import SideBarItem from './SideBarItem';
 import ButtonLink from './ButtonLink';
@@ -23,7 +24,12 @@ function SideBar() {
             </div>
             {user ? (
                 <>
-                    <SideBarItem link="/" text="Home" icon={<HomeIcon />} />
+                    <SideBarItem link="/" text="Home" icon={<HomeOutlinedIcon />} />
+                    <SideBarItem
+                        link={`/bookmarks`}
+                        text="Bookmarks"
+                        icon={<BookmarkBorderIcon />}
+                    />
                     <SideBarItem
                         link={`/${user.userName}`}
                         text="Profile"

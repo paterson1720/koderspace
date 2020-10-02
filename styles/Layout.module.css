@@ -26,6 +26,39 @@
     display: none;
 }
 
+.tagsContainer {
+    flex: 0.4;
+}
+
+.tagsHeader {
+    border-bottom: 1px solid #263341;
+}
+
+.tagsHeader h3 {
+    margin: 35px 10px 3px;
+    color: dodgerblue;
+}
+
+.tagItems {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tagItem {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #263341;
+    border-radius: 4px;
+    font-size: small;
+    color: steelblue;
+    cursor: pointer;
+}
+
+.tagItem:hover {
+    background-color: #263341;
+}
+
 @media (max-width: 1200px) {
     .wrapper {
         width: 100vw;

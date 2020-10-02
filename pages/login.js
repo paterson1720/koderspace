@@ -1,6 +1,6 @@
 import React from 'react';
 // import FacebookIcon from '@material-ui/icons/Facebook';
-import GoogleLoginButton from '../components/GoogleLoginButton';
+import GoogleLoginButton from '../components/GoogleLoginButton.jsx';
 
 import styles from '../styles/LoginPage.module.css';
 

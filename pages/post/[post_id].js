@@ -23,6 +23,7 @@ function PostDetails(props) {
     const commentsRef = useRef(comments);
 
     const fetchComments = async () => {
+        if (!post) return;
         const commentsResponse = await fetch(`/api/comments/${post._id}`);
         const { comments } = await commentsResponse.json();
         setComments(comments);
@@ -74,7 +75,7 @@ function PostDetails(props) {
     }, []);
 
     useEffect(() => {
-        socket.emit('JOIN_COMMENT', post._id);
+        if (post?._id) socket.emit('JOIN_COMMENT', post._id);
         socket.on('NEW_COMMENT', commentHandler);
         socket.on('COMMENT_DELETED', handleCommentDeletedEvent);
         return () => {
@@ -83,6 +84,7 @@ function PostDetails(props) {
         };
     }, []);
 
+    if (!post) return <div>Page Not Found!</div>;
     return (
         <>
             <div className={styles.postPageNavBar}>

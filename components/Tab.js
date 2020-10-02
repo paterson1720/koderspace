@@ -36,8 +36,8 @@ export default function CustomTab({ children, handleTabChange, handleChangeTabIn
                     variant="fullWidth"
                     aria-label="full width tabs example">
                     <Tab style={{ color: 'dodgerblue' }} label="My Posts" {...a11yProps(0)} />
-                    <Tab style={{ color: 'dodgerblue' }} label="Saved" {...a11yProps(1)} />
-                    <Tab style={{ color: 'dodgerblue' }} label="Media" {...a11yProps(2)} />
+                    {/*   <Tab style={{ color: 'dodgerblue' }} label="Saved" {...a11yProps(1)} />
+                    <Tab style={{ color: 'dodgerblue' }} label="Media" {...a11yProps(2)} /> */}
                 </Tabs>
             </AppBar>
             <SwipeableViews

@@ -55,6 +55,7 @@ function Profile(props) {
     };
 
     const fetchPosts = async () => {
+        if (!user) return;
         const postsResponse = await fetch(`/api/posts/user/${user?._id}`);
         const { posts } = await postsResponse.json();
         setUserPosts(posts);
@@ -66,7 +67,7 @@ function Profile(props) {
 
     useEffect(() => {
         const checkIfIsFollowing = async () => {
-            if (!loggedInUser || isSameUser()) return;
+            if (!user || !loggedInUser || isSameUser()) return;
             const response = await fetch(
                 `/api/users/checkfollower/${loggedInUser._id}/${profileUser._id}`
             );
@@ -77,6 +78,7 @@ function Profile(props) {
         checkIfIsFollowing();
     }, []);
 
+    if (!user) return <div>Page Not Found!</div>;
     return (
         <Layout>
             <div className={styles.userInfo}>
@@ -151,9 +153,9 @@ function Profile(props) {
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     Saved Posts
                 </TabPanel>
-                <TabPanel value={value} index={2} dir={theme.direction}>
+                {/* <TabPanel value={value} index={2} dir={theme.direction}>
                     Media
-                </TabPanel>
+                </TabPanel> */}
             </CustomTab>
             <ProfileEditor
                 open={openProfileEditor}
