@@ -4,6 +4,13 @@ import moment from 'moment';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import Link from 'next/link';
 
+import { Avatar } from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+
 import MarkDownTextArea from '../../components/MarkDownTextArea';
 import CodeEditor from '../../components/CodeEditor';
 import CustomAvatar from '../../components/Avatar';
@@ -12,7 +19,6 @@ import Comment from '../../components/Comment';
 import styles from '../../styles/Post.module.css';
 
 import HttpService from '../../HttpService/index';
-import { Avatar } from '@material-ui/core';
 import ImageViewer from '../../components/ImageViewer';
 
 function PostDetails(props) {
@@ -20,6 +26,7 @@ function PostDetails(props) {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({});
     const [loading, setLoading] = useState(false);
+    const [bookmarked, setBookmarked] = useState(false);
     const commentsRef = useRef(comments);
 
     const fetchComments = async () => {
@@ -62,6 +69,15 @@ function PostDetails(props) {
         setNewComment({ description: value });
     };
 
+    const handleSaveBookmark = async () => {
+        if (!user) window.location.replace('/login');
+        if (bookmarked) return;
+        const bookmark = { user: user._id, post };
+        const { error, data } = await HttpService.postData(`/api/bookmarks/save`, bookmark);
+        if (error || data.error) return alert('Oops! An error happen, please try again.');
+        setBookmarked(true);
+    };
+
     const commentHandler = (data) => {
         setComments([...commentsRef.current, data]);
     };
@@ -72,6 +88,16 @@ function PostDetails(props) {
 
     useEffect(() => {
         fetchComments();
+    }, []);
+
+    useEffect(() => {
+        const checkBookmark = async () => {
+            if (!user) return;
+            const data = await fetch(`/api/bookmarks/check/${user._id}/${post._id}`);
+            const { bookmarked } = await data.json();
+            setBookmarked(bookmarked);
+        };
+        checkBookmark();
     }, []);
 
     useEffect(() => {
@@ -124,6 +150,27 @@ function PostDetails(props) {
                         <>
                             <div className={styles.editorExtensionTop}>
                                 <span className={styles.codeLanguage}>{post?.codeLanguage}</span>
+                                <div className={styles.editorHeaderIcons}>
+                                    <Tooltip
+                                        title={
+                                            bookmarked
+                                                ? 'Code saved to bookmarks'
+                                                : 'Save code to bookmarks'
+                                        }>
+                                        <IconButton onClick={handleSaveBookmark}>
+                                            {bookmarked ? (
+                                                <BookmarkIcon style={{ color: 'dodgerblue' }} />
+                                            ) : (
+                                                <BookmarkBorderIcon />
+                                            )}
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Copy code to clipboard">
+                                        <IconButton>
+                                            <FileCopyOutlinedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </div>
                             </div>
                             <CodeEditor
                                 mode={post?.codeLanguage}
@@ -136,12 +183,6 @@ function PostDetails(props) {
                             <div className={styles.editorExtensionBottom} />
                         </>
                     )}
-                    {/* <div className={styles.postFooter}>
-                    <div className={styles.rateReviewIconContainer}>
-                        <RateReviewIcon />
-                        <span>10K Comments</span>
-                    </div>
-                </div> */}
                 </div>
                 <div className={styles.commentContainer}>
                     <ScrollToBottom

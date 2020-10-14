@@ -116,7 +116,7 @@ function Profile(props) {
                     </p>
                     <p>
                         <span>{user?.followersCount}</span>
-                        {user?.followers > 1 ? 'Followers' : 'Follower'}
+                        {user?.followersCount > 1 ? 'Followers' : 'Follower'}
                     </p>
                 </div>
 

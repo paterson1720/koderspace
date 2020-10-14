@@ -33,10 +33,21 @@
 
 .editorExtensionTop {
     width: 90%;
-    height: 20px;
+    height: 30px;
     background-color: #081523;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.editorHeaderIcons button {
+    color: rgb(216, 216, 216);
+}
+
+.editorHeaderIcons button:hover {
+    color: white;
 }
 
 .editorExtensionBottom {
