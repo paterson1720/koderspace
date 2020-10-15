@@ -1,11 +1,21 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
+
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 
 import styles from '../styles/Layout.module.css';
 import SideBar from './SideBar';
 import Header from './Header';
+import BottomNavItem from './BottomNavItem';
+
+import { GlobalContext } from '../pages/_app';
 
 function Layout({ children: content }) {
+    const { globalState } = useContext(GlobalContext);
+    const { user } = globalState;
+
     return (
         <main className={styles.main}>
             <div className={styles.wrapper}>
@@ -33,6 +43,14 @@ function Layout({ children: content }) {
                     </div>
                 </section>
             </div>
+            <nav className={styles.bottomNav}>
+                <BottomNavItem icon={<HomeOutlinedIcon fontSize="large" />} link="/" />
+                <BottomNavItem
+                    icon={<PersonOutlineIcon fontSize="large" />}
+                    link={`/${user.userName}`}
+                />
+                <BottomNavItem icon={<BookmarkBorderIcon fontSize="large" />} link="/bookmarks" />
+            </nav>
         </main>
     );
 }
