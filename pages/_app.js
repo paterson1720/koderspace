@@ -7,6 +7,7 @@ import 'easymde/dist/easymde.min.css';
 import socket from '../config/socket';
 
 export const GlobalContext = React.createContext();
+
 function MyApp({ Component, pageProps }) {
     const [globalState, setGlobalState] = React.useState({ user: pageProps.user });
 

@@ -11,6 +11,7 @@ import Header from './Header';
 import BottomNavItem from './BottomNavItem';
 
 import { GlobalContext } from '../pages/_app';
+import Link from 'next/link';
 
 function Layout({ children: content }) {
     const { globalState } = useContext(GlobalContext);
@@ -45,11 +46,23 @@ function Layout({ children: content }) {
             </div>
             <nav className={styles.bottomNav}>
                 <BottomNavItem icon={<HomeOutlinedIcon fontSize="large" />} link="/" />
-                <BottomNavItem
-                    icon={<PersonOutlineIcon fontSize="large" />}
-                    link={`/${user.userName}`}
-                />
-                <BottomNavItem icon={<BookmarkBorderIcon fontSize="large" />} link="/bookmarks" />
+                {!user ? (
+                    <Link href="/login">
+                        <a className={styles.bottomNavLoginBtn}>Login/Register</a>
+                    </Link>
+                ) : null}
+                {user ? (
+                    <>
+                        <BottomNavItem
+                            icon={<PersonOutlineIcon fontSize="large" />}
+                            link={`/${user.userName}`}
+                        />
+                        <BottomNavItem
+                            icon={<BookmarkBorderIcon fontSize="large" />}
+                            link="/bookmarks"
+                        />
+                    </>
+                ) : null}
             </nav>
         </main>
     );

@@ -17,6 +17,7 @@ import { GlobalContext } from '../pages/_app';
 function SideBar() {
     const { globalState } = useContext(GlobalContext);
     const { user } = globalState;
+
     return (
         <section className={styles.sideBar}>
             <div className={styles.logo}>
