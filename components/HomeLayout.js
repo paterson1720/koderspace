@@ -48,7 +48,7 @@ function Layout({ children: content }) {
                     </div>
                 </section>
             </div>
-            <nav className={styles.bottomNav}>
+            <div className={styles.bottomNav}>
                 <BottomNavItem icon={<HomeOutlinedIcon fontSize="large" />} link="/" />
                 {!user ? (
                     <Link href="/login">
@@ -67,7 +67,7 @@ function Layout({ children: content }) {
                         />
                     </>
                 ) : null}
-            </nav>
+            </div>
         </main>
     );
 }
