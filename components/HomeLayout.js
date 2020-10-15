@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
+import Head from 'next/head';
 
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -19,6 +20,9 @@ function Layout({ children: content }) {
 
     return (
         <main className={styles.main}>
+            <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            </Head>
             <div className={styles.wrapper}>
                 <SideBar />
                 <section className={styles.contentArea}>
