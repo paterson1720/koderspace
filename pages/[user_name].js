@@ -150,12 +150,14 @@ function Profile(props) {
                         ))}
                     </div>
                 </TabPanel>
+                {/*
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     Saved Posts
                 </TabPanel>
-                {/* <TabPanel value={value} index={2} dir={theme.direction}>
+                <TabPanel value={value} index={2} dir={theme.direction}>
                     Media
-                </TabPanel> */}
+                </TabPanel> 
+                */}
             </CustomTab>
             <ProfileEditor
                 open={openProfileEditor}
