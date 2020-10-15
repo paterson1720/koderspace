@@ -65,7 +65,7 @@
     background-color: #0b1a29;
     position: absolute;
     bottom: 0;
-    display: none;
+    display: flex;
     justify-content: space-around;
     align-items: center;
 }
@@ -96,8 +96,8 @@
     }
 }
 
-@media (max-width: 1000px) {
+@media (min-width: 1000px) {
     .bottomNav {
-        display: flex;
+        display: none;
     }
 }
