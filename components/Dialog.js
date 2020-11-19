@@ -11,60 +11,57 @@ import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const styles = (theme) => ({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-        backgroundColor: '#21354a',
-        color: 'white'
-    },
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+    backgroundColor: '#21354a',
+    color: 'white'
+  },
 
-    closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500]
-    }
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500]
+  }
 });
 
 export default function CustomDialog(props) {
-    const { turnOnfullScreenOnSize, maxWidth, fullWidth, onClose, children, open, title } = props;
-    const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down(turnOnfullScreenOnSize));
+  const { turnOnfullScreenOnSize, maxWidth, fullWidth, onClose, children, open, title } = props;
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down(turnOnfullScreenOnSize));
 
-    const DialogTitle = withStyles(styles)((props) => {
-        const { children, classes, onClose, ...other } = props;
-        return (
-            <MuiDialogTitle disableTypography className={classes.root} {...other}>
-                <Typography variant="h6">{children}</Typography>
-                {onClose ? (
-                    <IconButton
-                        aria-label="close"
-                        className={classes.closeButton}
-                        onClick={onClose}>
-                        <CloseIcon />
-                    </IconButton>
-                ) : null}
-            </MuiDialogTitle>
-        );
-    });
-
+  const DialogTitle = withStyles(styles)((props) => {
+    const { children, classes, onClose, ...other } = props;
     return (
-        <>
-            <Dialog
-                maxWidth={maxWidth}
-                fullScreen={fullScreen}
-                onClose={onClose}
-                fullWidth={fullWidth}
-                title={title}
-                aria-labelledby="customized-dialog-title"
-                open={open}>
-                <DialogTitle id="customized-dialog-title" onClose={onClose}>
-                    {title}
-                </DialogTitle>
-                <DialogContent dividers style={{ backgroundColor: '#15202b' }}>
-                    {children}
-                </DialogContent>
-            </Dialog>
-        </>
+      <MuiDialogTitle disableTypography className={classes.root} {...other}>
+        <Typography variant="h6">{children}</Typography>
+        {onClose ? (
+          <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        ) : null}
+      </MuiDialogTitle>
     );
+  });
+
+  return (
+    <>
+      <Dialog
+        maxWidth={maxWidth}
+        fullScreen={fullScreen}
+        onClose={onClose}
+        fullWidth={fullWidth}
+        title={title}
+        aria-labelledby="customized-dialog-title"
+        open={open}>
+        <DialogTitle id="customized-dialog-title" onClose={onClose}>
+          {title}
+        </DialogTitle>
+        <DialogContent dividers style={{ backgroundColor: '#15202b' }}>
+          {children}
+        </DialogContent>
+      </Dialog>
+    </>
+  );
 }

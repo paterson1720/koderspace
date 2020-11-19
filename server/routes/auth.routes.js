@@ -15,11 +15,11 @@ const scope = ['profile', 'email'];
 router.get('/google', passport.authenticate('google', { scope }));
 
 router.get(
-    '/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    (req, res) => {
-        return res.status(200).cookie('jwt', signToken(req.user), { httpOnly: true }).redirect('/');
-    }
+  '/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    return res.status(200).cookie('jwt', signToken(req.user), { httpOnly: true }).redirect('/');
+  }
 );
 
 module.exports = router;

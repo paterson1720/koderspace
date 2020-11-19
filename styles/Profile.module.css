@@ -87,3 +87,8 @@
     color: #cecccc;
     margin: 3px;
 }
+
+.createPostBtnContainer {
+    display: flex;
+    flex-direction: column;
+}

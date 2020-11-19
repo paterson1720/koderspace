@@ -21,39 +21,39 @@ import 'ace-builds/src-noconflict/theme-monokai';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
 function CodeEditor({
-    mode,
-    code,
-    onChange,
-    readOnly,
-    height,
-    placeholder,
-    showGutter,
-    showLineNumbers
+  mode,
+  code,
+  onChange,
+  readOnly,
+  height,
+  placeholder,
+  showGutter,
+  showLineNumbers
 }) {
-    return (
-        <>
-            <AceEditor
-                value={code}
-                placeholder={placeholder}
-                mode={mode}
-                readOnly={readOnly}
-                height={height}
-                theme="monokai"
-                fontSize={16}
-                width="90%"
-                onChange={onChange}
-                name="ace_editor_div"
-                editorProps={{ $blockScrolling: true }}
-                setOptions={{
-                    enableBasicAutocompletion: true,
-                    enableLiveAutocompletion: true,
-                    enableSnippets: true,
-                    showLineNumbers: showLineNumbers,
-                    showGutter: showGutter
-                }}
-            />
-        </>
-    );
+  return (
+    <>
+      <AceEditor
+        value={code}
+        placeholder={placeholder}
+        mode={mode}
+        readOnly={readOnly}
+        height={height}
+        theme="monokai"
+        fontSize={16}
+        width="90%"
+        onChange={onChange}
+        name="ace_editor_div"
+        editorProps={{ $blockScrolling: true }}
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: true,
+          showLineNumbers: showLineNumbers,
+          showGutter: showGutter
+        }}
+      />
+    </>
+  );
 }
 
 export default CodeEditor;
