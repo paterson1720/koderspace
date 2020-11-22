@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Layout from '../components/HomeLayout';
 import Post from '../components/Post';
 
+import styles from '../styles/Bookmarks.module.css';
+
 function Bookmarks(props) {
   let { user, bookmarks } = props;
   const [userBookmarks, setUserBookmarks] = useState(bookmarks);
@@ -17,12 +19,14 @@ function Bookmarks(props) {
 
   return (
     <Layout>
-      <div>
-        {userBookmarks?.map(({ _id, post }) => (
-          <>
+      <div className={styles.bookmarksContainer}>
+        {userBookmarks?.length ? (
+          userBookmarks?.map(({ _id, post }) => (
             <Post post={post} user={user} fetchPosts={fetchBookmarks} key={_id} bookmarkId={_id} />
-          </>
-        ))}
+          ))
+        ) : (
+          <p>YOU HAVE NOT SAVE ANY BOOKMARK YET</p>
+        )}
       </div>
     </Layout>
   );

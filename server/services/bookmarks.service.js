@@ -24,7 +24,6 @@ const service = {
   async findByUserId(req, res) {
     try {
       const { userId } = req.params;
-      console.log('USER', userId);
       const bookmarks = await Model.find({ user: userId });
       res.status(200).json({ bookmarks, error: null }).end();
     } catch (error) {

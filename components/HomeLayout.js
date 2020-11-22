@@ -14,7 +14,7 @@ import BottomNavItem from './BottomNavItem';
 import { GlobalContext } from '../pages/_app';
 import Link from 'next/link';
 
-function Layout({ children: content }) {
+function Layout({ children: content, onSearch }) {
   const { globalState } = useContext(GlobalContext);
   const { user } = globalState;
 
@@ -26,7 +26,7 @@ function Layout({ children: content }) {
       <div className={styles.wrapper}>
         <SideBar />
         <section className={styles.contentArea}>
-          <Header />
+          <Header onSearch={onSearch} />
           {content}
         </section>
         <section className={styles.tagsContainer}>

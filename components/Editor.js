@@ -68,7 +68,7 @@ function Editor({
           onKeyDown={(e) => e.key === 'Enter' && setShowCodeEditor(!showCodeEditor)}
           onClick={() => setShowCodeEditor(!showCodeEditor)}>
           <CodeOutlinedIcon />
-          {showCodeEditor ? 'Hide Code Editor' : 'Show Code Editor'}
+          {showCodeEditor ? 'Hide' : 'Show Code Editor'}
         </div>
 
         <div

@@ -1,11 +1,16 @@
 import React from 'react';
-import SearchBar from './SearchBar';
+import { useRouter } from 'next/router';
+
+import SearchInput from './HeaderSearchInput';
 import styles from '../styles/Header.module.css';
 
-function Header() {
+// eslint-disable-next-line react/prop-types
+function Header({ onSearch }) {
+  const router = useRouter();
+
   return (
     <div className={styles.header}>
-      <SearchBar />
+      {router.pathname === '/' ? <SearchInput handleSearch={onSearch} /> : null}
     </div>
   );
 }

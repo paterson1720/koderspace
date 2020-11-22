@@ -83,7 +83,7 @@ export default function Home(props) {
   };
 
   return (
-    <Layout>
+    <Layout onSearch={setPosts}>
       <div className={styles.container}>
         {loading && <CircularProgress />}
 
@@ -120,6 +120,7 @@ export default function Home(props) {
         ref={inputImageRef}
         style={{ display: 'none' }}
         onChange={handleFileUpload}
+        accept="image/x-png,image/gif,image/jpeg"
         multiple
       />
     </Layout>
