@@ -39,6 +39,7 @@ function Editor({
           placeholder="Write a short description of your post..."
           value={textAreaValue}
           onChange={onTextAreaChange}
+          onFocus={() => setShowCodeEditor(true)}
         />
       </div>
 

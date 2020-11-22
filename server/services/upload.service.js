@@ -6,9 +6,9 @@ const multer = require('multer');
 const cloudinaryUpload = util.promisify(cloudinary.uploader.upload);
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, // 'technologeek',
-  api_key: process.env.CLOUDINARY_API_KEY, // '564942264216694',
-  api_secret: process.env.CLOUDINARY_API_SECRET // 'Hf1u83pG2PwhcqJap3_qPkR_4-A'
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 const storage = multer.diskStorage({
