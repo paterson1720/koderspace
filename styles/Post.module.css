@@ -111,6 +111,11 @@
   display: none;
 }
 
+.submitHint {
+  color: gray;
+  font-size: 12px;
+}
+
 .textAreaAndButtonWrapper {
   position: relative;
   padding-top: 10px;
