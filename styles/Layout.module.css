@@ -1,104 +1,106 @@
 .main {
-    min-width: 100vw;
-    min-height: 100vh;
-    position: fixed;
+  min-width: 100vw;
+  min-height: 100vh;
+  position: fixed;
 }
 
 .wrapper {
-    display: flex;
-    justify-content: center;
-    width: 85vw;
-    margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 85vw;
+  margin: 0 auto;
 }
 
 .contentArea {
-    height: 100vh;
-    flex: 1;
-    position: relative;
-    overflow: overlay;
-    -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
-    scrollbar-width: none; /* Hide Scrollbar Firefox */
-    border: 0.2px solid #21354a;
-    border-top: none;
+  height: 100vh;
+  flex: 1;
+  position: relative;
+  overflow: overlay;
+  -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
+  scrollbar-width: none; /* Hide Scrollbar Firefox */
+  overflow-y: scroll;
+  overscroll-behavior-y: contain;
+  border: 0.2px solid #21354a;
+  border-top: none;
 }
 
 .contentArea::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .tagsContainer {
-    flex: 0.4;
+  flex: 0.4;
 }
 
 .tagsHeader {
-    border-bottom: 1px solid #263341;
+  border-bottom: 1px solid #263341;
 }
 
 .tagsHeader h3 {
-    margin: 35px 10px 3px;
-    color: dodgerblue;
+  margin: 35px 10px 3px;
+  color: dodgerblue;
 }
 
 .tagItems {
-    padding: 10px;
-    display: flex;
-    flex-wrap: wrap;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .tagItem {
-    padding: 5px;
-    margin: 5px;
-    border: 1px solid #263341;
-    border-radius: 4px;
-    font-size: small;
-    color: steelblue;
-    cursor: pointer;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #263341;
+  border-radius: 4px;
+  font-size: small;
+  color: steelblue;
+  cursor: pointer;
 }
 
 .tagItem:hover {
-    background-color: #263341;
+  background-color: #263341;
 }
 
 .bottomNav {
-    width: 100%;
-    height: 50px;
-    background-color: #0b1a29;
-    position: fixed;
-    z-index: 1000;
-    bottom: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  width: 100%;
+  height: 50px;
+  background-color: #0b1a29;
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .bottomNavLoginBtn {
-    display: flex;
-    align-items: center;
-    border: 1px solid dodgerblue;
-    height: 30px;
-    background-color: transparent;
-    color: white;
-    border-radius: 99px;
-    padding: 0 10px;
-    font-weight: 600;
+  display: flex;
+  align-items: center;
+  border: 1px solid dodgerblue;
+  height: 30px;
+  background-color: transparent;
+  color: white;
+  border-radius: 99px;
+  padding: 0 10px;
+  font-weight: 600;
 }
 
 @media (max-width: 1200px) {
-    .wrapper {
-        width: 100vw;
-    }
+  .wrapper {
+    width: 100vw;
+  }
 
-    .tagsContainer {
-        display: none;
-    }
+  .tagsContainer {
+    display: none;
+  }
 
-    .contentArea {
-        flex: 1;
-    }
+  .contentArea {
+    flex: 1;
+  }
 }
 
 @media (min-width: 1000px) {
-    .bottomNav {
-        display: none;
-    }
+  .bottomNav {
+    display: none;
+  }
 }
