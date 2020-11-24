@@ -124,7 +124,7 @@ function Profile(props) {
       </div>
 
       <div className={styles.userPostsContainer}>
-        {!userPosts?.length && (
+        {!userPosts?.length && isSameUser() && (
           <div className={styles.createPostBtnContainer}>
             <p>You have not created any posts yet</p>
             <button
